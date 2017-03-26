@@ -3,7 +3,7 @@ import scala.io.Source
 object day1 extends App {
 
   val startingCoordinate = (Seq(Coordinate(0, 0)), CardinalDirection.North)
-  val fileName = "day1Test.txt"
+  val fileName = "day1.txt"
   val fileCommaSplit = Source.fromResource(fileName).getLines.mkString.split(",")
 
   val route = fileCommaSplit.foldLeft(startingCoordinate) {
@@ -15,7 +15,4 @@ object day1 extends App {
 
   println("The distance to the final direction is: " + (finalSpot.x.abs + finalSpot.y.abs))
   println("The first spot visited twice is:" + (visitedTwice.x.abs + visitedTwice.y.abs))
-  println(route)
-  println(visitedTwice)
-  println(finalSpot)
 }

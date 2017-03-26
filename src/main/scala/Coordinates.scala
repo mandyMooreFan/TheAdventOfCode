@@ -15,15 +15,13 @@ object Coordinates {
 
   def takeDirections(direction: Directions, coordinates: Seq[Coordinate],
                      cardinalDirection: CardinalDirection.Value): (Seq[Coordinate], CardinalDirection.Value) = {
-    val currentCoordinate = coordinates.last
     val howMany = direction.howMany
     val newCardinalDirection = CardinalDirection().currentDirection(direction, cardinalDirection)
 
-    1.to(howMany).map { _ =>
-      coordinates :+ move(direction, cardinalDirection, currentCoordinate)
-      println(coordinates)
+    1.to(howMany).foldLeft(coordinates, newCardinalDirection) {
+      case ((coordinates: Seq[Coordinate], newCardinalDirection),howMany) =>
+        (coordinates :+ move(direction, cardinalDirection, coordinates.last), newCardinalDirection)
     }
-    (coordinates, newCardinalDirection)
   }
 }
 
