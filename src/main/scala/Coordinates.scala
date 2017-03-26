@@ -1,32 +1,29 @@
 
 object Coordinates {
-}
 
-case class Coordinates(x: Int, y: Int, cardinalDirection: String) {
+  def move(directions: Directions, cardinalDirection: CardinalDirection.Value,
+           currentCoordinate: Coordinate): Coordinate = (directions.whichWay, cardinalDirection) match {
+    case (Directions.L, CardinalDirection.North) => Coordinate(currentCoordinate.x - 1, currentCoordinate.y)
+    case (Directions.R, CardinalDirection.North) => Coordinate(currentCoordinate.x + 1, currentCoordinate.y)
+    case (Directions.L, CardinalDirection.South) => Coordinate(currentCoordinate.x + 1, currentCoordinate.y)
+    case (Directions.R, CardinalDirection.South) => Coordinate(currentCoordinate.x - 1, currentCoordinate.y)
+    case (Directions.L, CardinalDirection.East) => Coordinate(currentCoordinate.x, currentCoordinate.y + 1)
+    case (Directions.R, CardinalDirection.East) => Coordinate(currentCoordinate.x, currentCoordinate.y - 1)
+    case (Directions.L, CardinalDirection.West) => Coordinate(currentCoordinate.x, currentCoordinate.y - 1)
+    case (Directions.R, CardinalDirection.West) => Coordinate(currentCoordinate.x, currentCoordinate.y + 1)
+  }
 
-  def takeDirections(direction: Directions, currentCoordinates: Coordinates, cardinalDirection: String): Coordinates = {
-    val orientMap = currentCoordinates.orientMap(direction, cardinalDirection)
-    val whichWay = direction.whichWay
-    val moveSpaces = direction.howMany * orientMap
-    val newCardinalDirection = CardinalDirection().currentDirection(direction, cardinalDirection.toString)
+  def takeDirections(direction: Directions, coordinates: Seq[Coordinate],
+                     cardinalDirection: CardinalDirection.Value): (Seq[Coordinate], CardinalDirection.Value) = {
+    val howMany = direction.howMany
+    val newCardinalDirection = CardinalDirection().currentDirection(direction, cardinalDirection)
 
-    if (cardinalDirection.toString == CardinalDirection.North || cardinalDirection.toString == CardinalDirection.South)
-      Coordinates(currentCoordinates.x + moveSpaces, currentCoordinates.y, newCardinalDirection)
-    else {
-      Coordinates(currentCoordinates.x, currentCoordinates.y + moveSpaces, newCardinalDirection)
+    1.to(howMany).foldLeft(coordinates, newCardinalDirection) {
+      case ((coordinates: Seq[Coordinate], newCardinalDirection),howMany) =>
+        (coordinates :+ move(direction, cardinalDirection, coordinates.last), newCardinalDirection)
     }
   }
+}
 
-  def orientMap(directions: Directions, cardinalDirection: String): Int = (directions.whichWay.toString, cardinalDirection) match {
-    case (Directions.Left, CardinalDirection.North) => -1
-    case (Directions.Right, CardinalDirection.North) => 1
-    case (Directions.Left, CardinalDirection.South) => 1
-    case (Directions.Right, CardinalDirection.South) => -1
-    case (Directions.Left, CardinalDirection.East) => 1
-    case (Directions.Right, CardinalDirection.East) => -1
-    case (Directions.Left, CardinalDirection.West) => -1
-    case (Directions.Right, CardinalDirection.West) => 1
-
-  }
-
+case class Coordinate(x: Int, y: Int) {
 }

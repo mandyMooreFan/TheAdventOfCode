@@ -5,7 +5,7 @@ class DirectionsTest extends WordSpecLike with Matchers {
     val input = "R22"
     val direction = Directions(input)
 
-    "return the first character as Right or Left" in {
+    "return the first character as R or L" in {
       direction.whichWay should equal('R')
     }
     "return all characters after the first as the HowMany" in {
