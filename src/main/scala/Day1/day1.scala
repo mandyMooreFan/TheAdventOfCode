@@ -1,9 +1,12 @@
+package Day1
+
 import scala.io.Source
 
 object day1 extends App {
 
   val startingCoordinate = (Seq(Coordinate(0, 0)), CardinalDirection.North)
-  val fileName = "day1.txt"
+  val fileName = "Day1/day1.txt"
+  println(Source.fromResource(fileName))
   val fileCommaSplit = Source.fromResource(fileName).getLines.mkString.split(",")
 
   val route = fileCommaSplit.foldLeft(startingCoordinate) {
