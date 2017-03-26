@@ -1,8 +1,6 @@
 
 object CardinalDirection extends Enumeration {
   val North, South, East, West = Value
-
-  val startingDirection = CardinalDirection.North
 }
 
 case class CardinalDirection() {
