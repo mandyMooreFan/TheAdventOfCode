@@ -17,5 +17,7 @@ object day1 extends App {
   val finalSpot = route._1.last
 
   println("The distance to the final direction is: " + (finalSpot.x.abs + finalSpot.y.abs))
-  println("The first spot visited twice is:" + (visitedTwice.x.abs + visitedTwice.y.abs))
+  println("The first spot visited twice is: " + (visitedTwice.x.abs + visitedTwice.y.abs))
+
+  println(route)
 }
