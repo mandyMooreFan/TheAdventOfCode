@@ -1,3 +1,5 @@
+package Day1
+
 
 object Directions extends Enumeration {
   val R, L = Value

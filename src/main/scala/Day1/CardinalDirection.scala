@@ -1,3 +1,5 @@
+package Day1
+
 
 object CardinalDirection extends Enumeration {
   val North, South, East, West = Value

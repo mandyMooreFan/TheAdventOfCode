@@ -1,3 +1,5 @@
+package Day1
+
 
 object Coordinates {
 
